@@ -39,6 +39,29 @@ router.post('/users', async (req, res) => {
 // PUT to update a user by its _id
 router.put('users/:id', async (req, res) => {
     try {
-        const user = await User.findByIdAndUpdate
+        const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!user) {
+            res.status(404).json({ message: 'No user found with this id!' });
+            return;
+        }
+        res.json(user);
+    } catch (err) {
+        res.status(500).json(err);
     }
 });
+
+// DELETE a user by its _id
+router.delete('users/:id', async (req, res) => {
+    try {
+        const user = await User.findByIdAndDelete(req.params.id);
+        if (!user) {
+            res.status(404).json({ message: 'No user found with this id!' });
+            return;
+        }
+        res.json(user);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+module.exports = router;
