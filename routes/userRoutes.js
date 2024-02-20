@@ -8,6 +8,7 @@ router.get('/users', async (req, res) => {
         const users = await User.find().populate('thoughts').populate('friends');
         res.json(users);
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
@@ -21,6 +22,7 @@ router.get('/users/:id', async (req, res) => {
         }
         res.json(user);
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
@@ -31,6 +33,7 @@ router.post('/users', async (req, res) => {
         const newUser = await User.create(req.body);
         res.json(newUser);
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
@@ -44,6 +47,7 @@ router.put('/users/:id', async (req, res) => {
         }
         res.json(updatedUser);
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
@@ -57,6 +61,7 @@ router.delete('/users/:id', async (req, res) => {
         }
         res.json({ message: 'User successfully deleted.' });
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
@@ -71,6 +76,7 @@ router.post('/users/:userId/friends/:friendId', async (req, res) => {
         await User.findByIdAndUpdate(req.params.userId, { $addToSet: { friends: req.params.friendId } }, { new: true });
         res.json({ message: 'Friend added successfully.' });
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
@@ -85,6 +91,7 @@ router.delete('/users/:userId/friends/:friendId', async (req, res) => {
         await User.findByIdAndUpdate(req.params.userId, { $pull: { friends: req.params.friendId } }, { new: true });
         res.json({ message: 'Friend removed successfully.' });
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });

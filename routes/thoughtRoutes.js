@@ -9,6 +9,7 @@ router.get('/thoughts', async (req, res) => {
         const thoughts = await Thought.find();
         res.json(thoughts);
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
@@ -22,6 +23,7 @@ router.get('/thoughts/:id', async (req, res) => {
         }
         res.json(thought);
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
@@ -33,6 +35,7 @@ router.post('/thoughts', async (req, res) => {
         await User.findByIdAndUpdate(req.body.userId, { $push: { thoughts: newThought._id } }, { new: true });
         res.json(newThought);
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
@@ -46,6 +49,7 @@ router.put('/thoughts/:id', async (req, res) => {
         }
         res.json(updatedThought);
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
@@ -60,6 +64,7 @@ router.delete('/thoughts/:id', async (req, res) => {
         await User.findByIdAndUpdate(thoughtToDelete.userId, { $pull: { thoughts: req.params.id } }, { new: true });
         res.json({ message: 'Thought successfully deleted.' });
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
@@ -73,25 +78,27 @@ router.post('/thoughts/:thoughtId/reactions', async (req, res) => {
         }
         res.json(updatedThought);
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
 
 // DELETE to remove a reaction from a thought
 router.delete('/thoughts/:thoughtId/reactions/:reactionId', async (req, res) => {
-try {
-const updatedThought = await Thought.findByIdAndUpdate(
-req.params.thoughtId,
-{ $pull: { reactions: { _id: req.params.reactionId } } },
-{ new: true }
-);
-if (!updatedThought) {
-return res.status(404).json({ message: 'No thought found with this id to remove a reaction!' });
-}
-res.json(updatedThought);
-} catch (err) {
-res.status(500).json(err);
-}
+    try {
+        const updatedThought = await Thought.findByIdAndUpdate(
+            req.params.thoughtId,
+            { $pull: { reactions: { _id: req.params.reactionId } } },
+            { new: true }
+        );
+        if (!updatedThought) {
+            return res.status(404).json({ message: 'No thought found with this id to remove a reaction!' });
+        }
+        res.json(updatedThought);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
 });
 
 module.exports = router;
