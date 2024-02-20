@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+
+// Reaction subdocument schema
 const ReactionSchema = new mongoose.Schema({
   reactionId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -26,6 +28,8 @@ const ReactionSchema = new mongoose.Schema({
   _id: false
 });
 
+
+// Thought schema
 const ThoughtSchema = new mongoose.Schema({
   thoughtText: {
     type: String,

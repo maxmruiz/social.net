@@ -11,14 +11,14 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    match: [/.+\@.+\..+/, 'Please fill a valid email address']
+    match: [/.+\@.+\..+/, 'Please fill a valid email address'] // regex for email validation
   },
   thoughts: [{
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId, // associate thoughts with user
     ref: 'Thought'
   }],
   friends: [{
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId, // associate friends with user
     ref: 'User'
   }]
 }, {
