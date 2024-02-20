@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const reactionSchema = new mongoose.Schema({
+const ReactionSchema = new mongoose.Schema({
   reactionId: {
     type: mongoose.Schema.Types.ObjectId,
     default: () => new mongoose.Types.ObjectId()
@@ -17,12 +17,13 @@ const reactionSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    get: (createdAtVal) => createdAtVal.toLocaleString()
+    get: createdAtVal => createdAtVal.toLocaleString()
   }
 }, {
   toJSON: {
     getters: true
-  }
+  },
+  _id: false
 });
 
 const ThoughtSchema = new mongoose.Schema({
@@ -35,13 +36,13 @@ const ThoughtSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    get: (createdAtVal) => createdAtVal.toLocaleString()
+    get: createdAtVal => createdAtVal.toLocaleString()
   },
   username: {
     type: String,
     required: true
   },
-  reactions: [reactionSchema]
+  reactions: [ReactionSchema]
 }, {
   toJSON: {
     virtuals: true,
