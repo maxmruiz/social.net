@@ -30,10 +30,18 @@ git clone github.com/maxmruiz/social.net
 ```
 
 2. Navigate to the project directory:
-`cd social.net`
+```bash
+cd social.net
+```
 
-3. Install the necessary dependencies:
-`npm install` OR `npm i`
+4. Install the necessary dependencies:
+```bash
+npm install
+```
+OR 
+```bash
+npm i
+```
 
 ## Usage
 
